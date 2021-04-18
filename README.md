@@ -2,13 +2,13 @@
 
 ![CI](https://github.com/ArchieMeng/srmd-ncnn-vulkan-python/workflows/CI/badge.svg)
 
-[srmd-ncnn-vulkan](https://github.com/nihui/srmd-ncnn-vulkan) is nihui's ncnn implementation of waifu2x converter. Runs fast on Intel / AMD / Nvidia with Vulkan API.
+[srmd-ncnn-vulkan](https://github.com/nihui/srmd-ncnn-vulkan) is nihui's ncnn implementation of srmd converter. Runs fast on Intel / AMD / Nvidia with Vulkan API.
 
 This project is a Python wrapper of nihui's project.
 
-waifu2x-ncnn-vulkan-python wraps [srmd-ncnn-vulkan project](https://github.com/nihui/srmd-ncnn-vulkan) by SWIG to make it easier to integrate waifu2x-ncnn-vulkan with existing python projects.
+srmd-ncnn-vulkan-python wraps [srmd-ncnn-vulkan project](https://github.com/nihui/srmd-ncnn-vulkan) by SWIG to make it easier to integrate srmd-ncnn-vulkan with existing python projects.
 
-This project only wrapped the original Waifu2x class. As a result, functions other than the core upscaling and denoising such as multi-thread loading and saving are not available. Of course, the auto tilesize and prepadding settings are implements, so don't worry about them.
+This project only wrapped the original SRMD class. As a result, functions other than the core upscaling and denoising such as multi-thread loading and saving are not available. Of course, the auto tilesize and prepadding settings are implements, so don't worry about them.
 
 ## [Download](https://github.com/ArchieMeng/srmd-ncnn-vulkan-python/releases)
 
