@@ -1,12 +1,18 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.9)
 cmake_policy(SET CMP0091 NEW)
 set(CMAKE_POLICY_DEFAULT_CMP0091 NEW)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 project(srmd-ncnn-vulkan-python)
 
+# Python
+if (${CMAKE_VERSION} VERSION_LESS "3.15")
+    find_package(Python REQUIRED)
+else()
+    find_package(Python REQUIRED COMPONENTS Development)
+endif()
+
 # SWIG
-find_package(Python REQUIRED COMPONENTS Development)
 find_package(SWIG REQUIRED COMPONENTS python)
 if(SWIG_FOUND)
     message("SWIG found: ${SWIG_EXECUTABLE}")
@@ -273,4 +279,9 @@ include_directories(.)
 swig_add_library(srmd_ncnn_vulkan_wrapper LANGUAGE python SOURCES srmd.i srmd.cpp srmd_wrapper.cpp)
 add_dependencies(srmd_ncnn_vulkan_wrapper generate-spirv)
 target_compile_options(srmd_ncnn_vulkan_wrapper PUBLIC -fexceptions)
-target_link_libraries(srmd_ncnn_vulkan_wrapper ${SRMD_LINK_LIBRARIES} Python::Module)
+if (${CMAKE_VERSION} VERSION_LESS "3.15")
+    include_directories(${PYTHON_INCLUDE_DIRS})
+    target_link_libraries(srmd_ncnn_vulkan_wrapper ${SRMD_LINK_LIBRARIES} ${PYTHON_LIBRARIES})
+else()
+    target_link_libraries(srmd_ncnn_vulkan_wrapper ${SRMD_LINK_LIBRARIES} Python::Module)
+endif()

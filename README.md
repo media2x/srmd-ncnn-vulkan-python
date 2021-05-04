@@ -16,6 +16,8 @@ linux x64, Windows x64 and MacOS x64 releases are available now. For other platf
 The reason why MacOS ARM64 build is not available is that it needs ARM Python Dev Libs which I have no ideas on how to
 get it on Github's MacOS x64 VM. Moreover, I don't have a Mac.
 
+**However, for Linux (Like Ubuntu 18.04) with an older GLIBC (version < 2.29), you may try to use the ubuntu-1804 release or just compile it on your own.**
+
 ## Build
 
 First, you have to install python, python development package (Python native development libs in Visual Studio), vulkan SDK and SWIG on your platform. And then:
