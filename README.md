@@ -85,10 +85,10 @@ make
 
 ```python
 from PIL import Image
-from srmd_ncnn_vulkan import SRMD
+from srmd_ncnn_vulkan import Srmd
 
 im = Image.open("0.jpg")
-upscaler = SRMD(gpuid=0)
+upscaler = Srmd(gpuid=0)
 out_im = upscaler.process(im)
 out_im.save("1.png")
 ```
