@@ -1,6 +1,4 @@
-[submodule "src/ncnn"]
-	path = src/ncnn
-	url = https://github.com/Tencent/ncnn
-[submodule "src/libwebp"]
-	path = src/libwebp
-	url = https://github.com/webmproject/libwebp.git
+
+[submodule "srmd_ncnn_vulkan_python/srmd-ncnn-vulkan"]
+	path = srmd_ncnn_vulkan_python/srmd-ncnn-vulkan
+	url = https://github.com/nihui/srmd-ncnn-vulkan
