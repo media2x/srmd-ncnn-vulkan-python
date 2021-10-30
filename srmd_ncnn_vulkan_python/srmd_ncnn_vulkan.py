@@ -13,7 +13,7 @@ else:
     import srmd_ncnn_vulkan_wrapper as raw
 
 
-class SRMD:
+class Srmd:
     def __init__(
             self,
             gpuid=0,
@@ -24,7 +24,7 @@ class SRMD:
             tilesize=0,
     ):
         """
-        RealSR class which can do image super resolution.
+        Srmd class which can do image super resolution.
 
         :param gpuid: the id of the gpu device to use.
         :param model: the name or the path to the model
@@ -191,7 +191,7 @@ if __name__ == "__main__":
 
     t = time()
     im = Image.open("../images/0.jpg")
-    upscaler = SRMD(0)
+    upscaler = Srmd(0)
     out_im = upscaler.process(im)
     out_im.save("temp.png")
     print(f"Elapsed time: {time() - t}s")
