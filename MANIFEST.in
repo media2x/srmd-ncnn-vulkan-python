@@ -1,0 +1,4 @@
+recursive-include srmd_ncnn_vulkan_python/srmd-ncnn-vulkan/models *
+recursive-include srmd_ncnn_vulkan_python/srmd-ncnn-vulkan/src *
+include srmd_ncnn_vulkan_python/srmd-ncnn-vulkan/LICENSE
+include srmd_ncnn_vulkan_python/srmd-ncnn-vulkan/README.md
