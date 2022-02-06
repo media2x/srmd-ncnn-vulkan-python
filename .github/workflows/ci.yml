@@ -40,19 +40,3 @@ jobs:
       - name: Build
         run: |
           python -m build -w .
-  ubuntu-1804:
-    runs-on: ubuntu-18.04
-    env:
-      DEBIAN_FRONTEND: noninteractive
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip python3-venv libvulkan-dev swig glslang-dev glslang-tools
-          pip3 install build
-      - name: Build
-        run: |
-          python3 -m build -w .

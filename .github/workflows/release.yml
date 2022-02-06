@@ -49,36 +49,6 @@ jobs:
         with:
           name: ${{ env.PACKAGENAME }}
           path: ${{ env.PACKAGENAME }}.zip
-  ubuntu-1804:
-    needs:
-      - setup
-    runs-on: ubuntu-18.04
-    env:
-      PACKAGENAME: ${{ needs.setup.outputs.APPNAME }}-${{ needs.setup.outputs.VERSION }}-ubuntu-1804
-      DEBIAN_FRONTEND: noninteractive
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip python3-venv libvulkan-dev swig glslang-dev glslang-tools
-          pip3 install build
-      - name: Build
-        run: |
-          python3 -m build -w .
-      - name: Package
-        run: |
-          mkdir -p ${{ env.PACKAGENAME }}
-          cp README.md LICENSE ${{ env.PACKAGENAME }}
-          cp -r dist/* ${{ env.PACKAGENAME }}
-          zip -9 -r ${{ env.PACKAGENAME }}.zip ${{ env.PACKAGENAME }}
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.PACKAGENAME }}
-          path: ${{ env.PACKAGENAME }}.zip
   windows:
     needs:
       - setup
@@ -117,7 +87,6 @@ jobs:
     needs:
       - setup
       - ubuntu
-      - ubuntu-1804
       - windows
     runs-on: ubuntu-latest
     steps:
@@ -140,16 +109,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PACKAGENAME: ${{ needs.setup.outputs.APPNAME }}-${{ needs.setup.outputs.VERSION }}-ubuntu
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/${{ env.PACKAGENAME }}/${{ env.PACKAGENAME }}.zip
-          asset_name: ${{ env.PACKAGENAME }}.zip
-          asset_content_type: application/zip
-      - name: Upload (Ubuntu-1804)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PACKAGENAME: ${{ needs.setup.outputs.APPNAME }}-${{ needs.setup.outputs.VERSION }}-ubuntu-1804
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: artifacts/${{ env.PACKAGENAME }}/${{ env.PACKAGENAME }}.zip
