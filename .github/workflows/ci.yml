@@ -12,8 +12,18 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
-      - name: Install Vulkan SDK
-        uses: humbletim/setup-vulkan-sdk@v1.0.3
+      - name: cache-vulkansdk
+        id: cache-vulkansdk
+        uses: actions/cache@v1
+        with:
+          path: "VulkanSDK"
+          key: VulkanSDK-1.2.162.0-Installer
+      - name: vulkansdk
+        if: steps.cache-vulkansdk.outputs.cache-hit != 'true'
+        run: |
+          Invoke-WebRequest -Uri https://sdk.lunarg.com/sdk/download/1.2.162.0/windows/VulkanSDK-1.2.162.0-Installer.exe?Human=true -OutFile VulkanSDK-1.2.162.0-Installer.exe
+          7z x -aoa ./VulkanSDK-1.2.162.0-Installer.exe -oVulkanSDK
+          Remove-Item .\VulkanSDK\Demos, .\VulkanSDK\Samples, .\VulkanSDK\Third-Party, .\VulkanSDK\Tools, .\VulkanSDK\Tools32, .\VulkanSDK\Bin32, .\VulkanSDK\Lib32 -Recurse
       - uses: actions/setup-python@v2
         with:
           python-version: "3.8"
@@ -23,6 +33,7 @@ jobs:
           pip install build
       - name: Build
         run: |
+          $env:VULKAN_SDK="$(pwd)\VulkanSDK"
           python -m build -w .
   ubuntu:
     runs-on: ubuntu-latest
