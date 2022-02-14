@@ -30,7 +30,7 @@ setuptools.setup(
         cmake_build_extension.CMakeExtension(
             name="srmd-ncnn-vulkan-python",
             install_prefix="srmd_ncnn_vulkan_python",
-            write_top_level_init="from .srmd_ncnn_vulkan import Srmd",
+            write_top_level_init="from .srmd_ncnn_vulkan import Srmd, SRMD",
             source_dir=str(pathlib.Path(__file__).parent / "srmd_ncnn_vulkan_python"),
             cmake_configure_options=[
                 "-DBUILD_SHARED_LIBS:BOOL=OFF",

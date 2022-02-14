@@ -15,13 +15,13 @@ else:
 
 class Srmd:
     def __init__(
-            self,
-            gpuid=0,
-            model="models-srmd",
-            tta_mode=False,
-            scale: float = 2,
-            noise: int = 3,
-            tilesize=0,
+        self,
+        gpuid=0,
+        model="models-srmd",
+        tta_mode=False,
+        scale: float = 2,
+        noise: int = 3,
+        tilesize=0,
     ):
         """
         Srmd class which can do image super resolution.
@@ -49,7 +49,9 @@ class Srmd:
     def scale(self, scale):
         self._scale = scale
         pre_raw_scale = self._raw_srmd.scale
-        self._raw_srmd.scale = max(2, min(math.ceil(scale), 4))  # limit the scale ratio of raw SRMD object from 2 to 4
+        self._raw_srmd.scale = max(
+            2, min(math.ceil(scale), 4)
+        )  # limit the scale ratio of raw SRMD object from 2 to 4
         self.set_prepadding()
         if pre_raw_scale != self._raw_srmd.scale:
             self.load()
@@ -92,7 +94,7 @@ class Srmd:
             model_dir = Path(self.model)
             if not model_dir.is_absolute():
                 if (
-                        not model_dir.is_dir()
+                    not model_dir.is_dir()
                 ):  # try to load it from module path if not exists as directory
                     dir_path = Path(__file__).parent
                     model_dir = dir_path.joinpath("models", self.model)
@@ -158,7 +160,7 @@ class Srmd:
             self._raw_srmd.scale * im.width,
             self._raw_srmd.scale * im.height,
             channels,
-            )
+        )
 
         self._raw_srmd.process(raw_in_image, raw_out_image)
 
@@ -186,12 +188,5 @@ class Srmd:
         self._raw_srmd.prepadding = 12
 
 
-if __name__ == "__main__":
-    from time import time
-
-    t = time()
-    im = Image.open("../images/0.jpg")
-    upscaler = Srmd(0)
-    out_im = upscaler.process(im)
-    out_im.save("temp.png")
-    print(f"Elapsed time: {time() - t}s")
+class SRMD(Srmd):
+    ...
