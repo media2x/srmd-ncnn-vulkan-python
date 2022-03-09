@@ -5,24 +5,6 @@ import pathlib
 import setuptools
 import sys
 
-# HACK: allows pip to load user site packages when running setup
-if "PYTHONNOUSERSITE" in os.environ:
-    os.environ.pop("PYTHONNOUSERSITE")
-
-sys.path.append(
-    str(
-        pathlib.Path.home()
-        / ".local/lib/python{}.{}/site-packages".format(
-            sys.version_info.major, sys.version_info.minor
-        )
-    )
-)
-sys.path.append(
-    "/usr/lib/python{}.{}/site-packages".format(
-        sys.version_info.major, sys.version_info.minor
-    )
-)
-
 import cmake_build_extension
 
 setuptools.setup(
