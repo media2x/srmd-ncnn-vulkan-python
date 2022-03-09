@@ -3,7 +3,6 @@
 import os
 import pathlib
 import setuptools
-import sys
 
 import cmake_build_extension
 
